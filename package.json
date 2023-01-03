@@ -1,20 +1,43 @@
 {
-  "name": "@ovr/ovr",
-  "version": "0.0.1",
-  "description": "It's a framework created to make it easy to develop an enterprise solution based on react library.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MrMurdock11/ovr.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MrMurdock11/ovr/issues"
-  },
-  "homepage": "https://github.com/MrMurdock11/ovr#readme"
+	"name": "@ovr/ovr",
+	"version": "0.0.1",
+	"description": "It's a framework created to make it easy to develop an enterprise solution based on react library.",
+	"types": "./lib/cjs/types/index.d.ts",
+	"main": "./lib/cjs/index.js",
+	"scripts": {
+		"clean": "rm -rf ./lib",
+		"build": "npm run clean && npm run build:esm && npm run build:cjs",
+		"build:esm": "tsc -p ./tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
+		"build:cjs": "tsc -p ./tsconfig.cjs.json",
+		"prepack": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MrMurdock11/ovr.git"
+	},
+	"exports": {
+		".": {
+			"import": {
+				"types": "./lib/esm/types/index.d.ts",
+				"default": "./lib/esm/index.mjs"
+			},
+			"require": {
+				"types": "./lib/cjs/types/index.d.ts",
+				"default": "./lib/cjs/index.js"
+			}
+		}
+	},
+	"files": [
+		"lib/**/*"
+	],
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MrMurdock11/ovr/issues"
+	},
+	"homepage": "https://github.com/MrMurdock11/ovr#readme",
+	"devDependencies": {
+		"typescript": "4.9.4"
+	}
 }
